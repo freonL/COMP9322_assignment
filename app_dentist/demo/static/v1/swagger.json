@@ -1,0 +1,332 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Part of comp9322 Assignment, API on dentist's side",
+    "version": "1.0.0",
+    "title": "Dentist Microservice",
+    "contact": {
+      "email": "z5128774@ad.unsw.edu.au"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags": [
+    {
+      "name": "Dentist",
+      "description": "Everything about dentist"
+    }
+  ],
+  "paths": {
+    "/dentists": {
+      "get": {
+        "tags": [
+          "Dentist"
+        ],
+        "summary": "Get all available dentist",
+        "operationId": "get_dentist_ls",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "integer",
+            "minimum": 1,
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Dentist"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized API key"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/dentists/byDay": {
+      "get": {
+        "tags": [
+          "Dentist"
+        ],
+        "summary": "Get all available dentist on a day",
+        "operationId": "get_dentist_ls_day",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "integer",
+            "minimum": 1,
+            "default": 10
+          },
+          {
+            "name": "day",
+            "type": "string",
+            "in": "query",
+            "default": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Dentist"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized API key"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/dentists/byLoc": {
+      "get": {
+        "tags": [
+          "Dentist"
+        ],
+        "summary": "Get all available dentist in one location",
+        "operationId": "get_dentist_ls_loc",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "integer",
+            "minimum": 1,
+            "default": 10
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "type": "string",
+            "default": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Dentist"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized API key"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/dentists/{dentistId}/": {
+      "get": {
+        "tags": [
+          "Dentist"
+        ],
+        "summary": "Get a dentist detail information",
+        "operationId": "get_dentist",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "dentistId",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Dentist"
+            }
+          },
+          "401": {
+            "description": "Unauthorized API key"
+          },
+          "404": {
+            "description": "dentist not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/dentists/{dentistId}/timeslots": {
+      "get": {
+        "tags": [
+          "Dentist"
+        ],
+        "operationId": "get_dentist_timeslot",
+        "summary": "Get the dentist available timeslot",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "dentistId",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Timeslot"
+            }
+          },
+          "401": {
+            "description": "Unauthorized API key"
+          },
+          "404": {
+            "description": "dentist not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Dentist": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "work_days": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ]
+          }
+        },
+        "specialities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "public health dentistry",
+              "dento-maxillofacial radiology",
+              "endodontics",
+              "forensic odontology",
+              "oral and maxillofacial surgery",
+              "oral medicine",
+              "oral and maxillofacial pathology",
+              "oral surgery",
+              "orthodontics",
+              "paediatric dentistry",
+              "periodontics",
+              "prosthodontics",
+              "special needs dentistry"
+            ]
+          }
+        }
+      }
+    },
+    "Timeslot": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "time": {
+          "type": "string",
+          "description": "starting time, 1 hour timeslot"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "basePath": "/v1"
+}

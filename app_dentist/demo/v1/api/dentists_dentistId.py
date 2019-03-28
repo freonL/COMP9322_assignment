@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function
-
+from mongoengine.queryset.visitor import Q
 from flask import request, g
 from mongoengine import connect
 from ..models import Dentist

@@ -49,33 +49,33 @@ paths:
           type: integer
           minimum: 0
           default: 0
+          required: true
         - name: limit
           in: query
           type: integer
           minimum: 1
           default: 10
-        - name: filter
-          in: body
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-                description: dentist name insentitve case
-              work_day:
-                type: string
-                description: day name of week
-                enum:
-                  - Monday
-                  - Tuesday
-                  - Wednesday
-                  - Thursday
-                  - Friday
-                  - Saturday
-                  - Sunday
-              location:
-                type: string 
-                description: insentitve case
+          required: true
+        - name: name
+          in: query
+          type: string
+          description: dentist name insentitve case
+        - name: work_day
+          type: string
+          in: query
+          description: day name of week
+          enum:
+            - Monday
+            - Tuesday
+            - Wednesday
+            - Thursday
+            - Friday
+            - Saturday
+            - Sunday
+        - name: location
+          in: query
+          type: string 
+          description: suburb name, insentitve case
 
       responses:
         '200':
@@ -130,17 +130,16 @@ paths:
           in: path
           type: string
           required: true
-        - name: filter
-          in: body
-          schema:
-            type: object
-            properties:
-              start_date:
-                type: string
-                format: date
-              end_date:
-                type: string
-                format: date
+        - name: start_date
+          type: string
+          format: date
+          in: query
+          required: true
+        - name: end_date
+          type: string
+          format: date
+          in: query
+
       responses:
         '200':
           description: successful operation

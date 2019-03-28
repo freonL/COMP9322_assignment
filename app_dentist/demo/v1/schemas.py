@@ -54,7 +54,7 @@ definitions = {'definitions': {'Dentist': {'type': 'object', 'properties': {'id'
 
 validators = {
     ('dentists', 'GET'): {'json': {'type': 'object', 'properties': {'name': {'type': 'string', 'description': 'dentist name insentitve case'}, 'work_day': {'type': 'string', 'description': 'day name of week', 'enum': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}, 'location': {'type': 'string', 'description': 'insentitve case'}}}, 'args': {'required': [], 'properties': {'offset': {'type': 'integer', 'minimum': 0, 'default': 0}, 'limit': {'type': 'integer', 'minimum': 1, 'default': 10}}}},
-    ('dentists_dentistId_timeslots', 'GET'): {'json': None},
+    ('dentists_dentistId_timeslots', 'GET'): {'json': {'type': 'object', 'properties': {'start_date': {'type': 'string', 'format': 'date'}, 'end_date': {'type': 'string', 'format': 'date'}}}},
 }
 
 filters = {

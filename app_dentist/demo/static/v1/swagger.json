@@ -196,16 +196,17 @@
           {
             "name": "filter",
             "in": "body",
-            "type": "object",
-            "schema": null,
-            "properties": {
-              "start_date": {
-                "type": "string",
-                "format": "date"
-              },
-              "end_date": {
-                "type": "string",
-                "format": "date"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "start_date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "end_date": {
+                  "type": "string",
+                  "format": "date"
+                }
               }
             }
           }

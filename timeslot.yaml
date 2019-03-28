@@ -39,10 +39,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Appoinment'
-        405:
-          description: Invalid input
         401:
           description: Unauthorized API key
+        405:
+          description: Invalid input
+        default:
+          description: Something is wrong
       security:
       - api_key: []
   /appointments/byCustomer:
@@ -65,10 +67,12 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Appoinment'
-        405:
-          description: Invalid input
         401:
           description: Unauthorized API key
+        405:
+          description: Invalid input
+        default:
+          description: Something is wrong
       security:
       - api_key: []
   /appointments/byDoctor:
@@ -91,10 +95,13 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Appoinment'
-        405:
-          description: Invalid input
         401:
           description: Unauthorized API key
+        405:
+          description: Invalid input
+        default:
+          description: Something is wrong
+
       security:
       - api_key: []
   /appointments/{id}/cancel:
@@ -115,10 +122,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Appoinment'
-        405:
-          description: Invalid input
         401:
           description: Unauthorized API key
+        405:
+          description: Invalid input
+        default:
+          description: Something is wrong
       security:
       - api_key: []
   

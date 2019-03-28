@@ -50,10 +50,11 @@ paths:
                   booking_time:
                     type: string
                     pattern: "^\\d{2}(AM|PM)$"
-                
-           
         405:
           description: Invalid input
+        default:
+          description: Something is wrong
+        
   /locations:
     get:
       summary: Get all clinic(s) location as quick replies
@@ -98,7 +99,9 @@ paths:
                   
         405:
           description: Invalid input
-          
+        default:
+          description: Something is wrong
+        
   /dentists:
     get:
       summary: Get list of dentist base on query parameters as quick replies
@@ -151,7 +154,9 @@ paths:
                         text_attribute_name:
                           type: string
                           default: dentist_name
-  
+        default:
+          description: Something is wrong
+        
   /dentists/{dentist_name}:
     get:
       summary: Get a dentist detail base  and show it as text message
@@ -189,8 +194,9 @@ paths:
                             type: array
                             items:
                               type: string
-                    
-            
+        default:
+          description: Something is wrong
+         
   /dentists/{dentist_name}/timeslots:
     
     get:
@@ -243,7 +249,9 @@ paths:
                         text_attribute_name:
                           type: string
                           default: booking_time
-  
+        default:
+          description: Something is wrong
+        
   /timeslots:
     get:
       summary: Checking the avaiblity of a timeslot, redirect to book.confirm if it is available
@@ -270,7 +278,9 @@ paths:
                 type: array
                 items:
                   type: string
-    
+        default:
+          description: Something is wrong
+        
   /appointments:
     post:
       summary: Create new appointment with a dentist on given time
@@ -303,6 +313,9 @@ paths:
                 type: array
                 items:
                   type: string
+        default:
+          description: Something is wrong
+        
     get:
       summary: Get all customer upcomming appoiment(s) and return as quick replies
       operationId: appointment_ls
@@ -354,7 +367,9 @@ paths:
                         text_attribute_name:
                           type: string
                           default: booking_time
-          
+        default:
+          description: Something is wrong
+        
   /appointments/cancel:
     post:
       summary: Cancel an appointment

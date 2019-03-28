@@ -12,6 +12,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
+  "basePath": "/v1",
   "tags": [
     {
       "name": "Dentist",
@@ -19,6 +20,29 @@
     }
   ],
   "paths": {
+    "/locations": {
+      "get": {
+        "tags": [
+          "Dentist"
+        ],
+        "summary": "Get all location of clinic",
+        "operationId": "clinic_loc",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
     "/dentists": {
       "get": {
         "tags": [
@@ -173,7 +197,7 @@
         ]
       }
     },
-    "/dentists/{dentistId}/": {
+    "/dentists/{dentistId}": {
       "get": {
         "tags": [
           "Dentist"
@@ -323,10 +347,5 @@
         }
       }
     }
-  },
-  "externalDocs": {
-    "description": "Find out more about Swagger",
-    "url": "http://swagger.io"
-  },
-  "basePath": "/v1"
+  }
 }

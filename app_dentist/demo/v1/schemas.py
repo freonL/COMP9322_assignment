@@ -59,6 +59,7 @@ validators = {
 }
 
 filters = {
+    ('locations', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'type': 'string'}}}},
     ('dentists', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Dentist'}}}, 401: {'headers': None, 'schema': None}},
     ('dentists_byDay', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Dentist'}}}, 401: {'headers': None, 'schema': None}},
     ('dentists_byLoc', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Dentist'}}}, 401: {'headers': None, 'schema': None}},

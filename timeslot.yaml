@@ -1,0 +1,152 @@
+swagger: '2.0'
+info:
+  description: Part of comp9322 Assignment, API on booking system's side
+  version: 1.0.0
+  title: Timeslot Microservice
+  contact:
+    email: z5128774@ad.unsw.edu.au
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+- name : Appointment
+  description: Everything about Appointments
+host: "0.0.0.0"
+basePath: /v1
+
+schemes:
+- https
+paths:
+  /appointments:
+    post:
+      tags:
+      - Appointment
+      summary: Create new appoinment
+      operationId: create_appointment
+      parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/Appoinment'
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Appoinment'
+        405:
+          description: Invalid input
+        401:
+          description: Unauthorized API key
+      security:
+      - api_key: []
+  /appointments/byCustomer:
+    get:
+      tags:
+      - Appointment
+      summary: Get list of upcoming Appointments of a Customer
+      operationId: get_appointment_byCustomer
+      parameters:
+      - in: query
+        name: name
+        type: string
+        required: true
+      produces:
+      - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Appoinment'
+        405:
+          description: Invalid input
+        401:
+          description: Unauthorized API key
+      security:
+      - api_key: []
+  /appointments/byDoctor:
+    get:
+      tags:
+      - Appointment
+      summary: Get list of upcoming Appointments of a doctor
+      operationId: get_appointment_byDoctor
+      parameters:
+      - in: query
+        name: name
+        type: string
+        required: true
+      produces:
+      - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Appoinment'
+        405:
+          description: Invalid input
+        401:
+          description: Unauthorized API key
+      security:
+      - api_key: []
+  /appointments/{id}/cancel:
+    patch:
+      tags:
+      - Appointment
+      summary: Cancel a appoinment
+      operationId: cancel_appointment
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        type: string
+        in: path
+        required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Appoinment'
+        405:
+          description: Invalid input
+        401:
+          description: Unauthorized API key
+      security:
+      - api_key: []
+  
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+
+definitions:
+  Appoinment:
+    type: object
+    properties:
+      id:
+        type: integer
+      date:
+        type: string
+        format: date
+      time:
+        type: string
+        pattern: '^\d{2}(AM|PM)$'
+      customer:
+        type: string
+      doctor:
+        type: string
+      status:
+        type: string
+        enum:
+        - reserved
+        - canceled
+      

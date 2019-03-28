@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
 from __future__ import absolute_import
 
 from flask import Flask
@@ -14,4 +14,4 @@ def create_app():
     return app
 
 if __name__ == '__main__':
-    create_app().run(debug=True)
+    create_app().run(debug=True, port=2000)

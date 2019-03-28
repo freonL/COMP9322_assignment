@@ -15,8 +15,11 @@ class Dentists(Resource):
         offset = g.args['offset']
         limit = g.args['limit']
         max_rec = offset + limit
-        connect(host='mongodb://user1:abc123@ds040877.mlab.com:40877/db_01')
-        for key in g.json:
+        
+        for key in g.args: 
             print(key)
+        
+        connect(host='mongodb://user1:abc123@ds040877.mlab.com:40877/db_01')
+        
 
         return Dentist.objects[offset:max_rec], 200, None

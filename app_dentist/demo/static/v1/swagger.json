@@ -39,8 +39,19 @@
                 "type": "string"
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized API key"
+          },
+          "default": {
+            "description": "Something is wrong"
           }
-        }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
       }
     },
     "/dentists": {
@@ -67,6 +78,36 @@
             "type": "integer",
             "minimum": 1,
             "default": 10
+          },
+          {
+            "name": "filter",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "dentist name insentitve case"
+                },
+                "work_day": {
+                  "type": "string",
+                  "description": "day name of week",
+                  "enum": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday"
+                  ]
+                },
+                "location": {
+                  "type": "string",
+                  "description": "insentitve case"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -81,113 +122,9 @@
           },
           "401": {
             "description": "Unauthorized API key"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/dentists/byDay": {
-      "get": {
-        "tags": [
-          "Dentist"
-        ],
-        "summary": "Get all available dentist on a day",
-        "operationId": "get_dentist_ls_day",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "offset",
-            "in": "query",
-            "type": "integer",
-            "minimum": 0,
-            "default": 0
           },
-          {
-            "name": "limit",
-            "in": "query",
-            "type": "integer",
-            "minimum": 1,
-            "default": 10
-          },
-          {
-            "name": "day",
-            "type": "string",
-            "in": "query",
-            "default": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Dentist"
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized API key"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/dentists/byLoc": {
-      "get": {
-        "tags": [
-          "Dentist"
-        ],
-        "summary": "Get all available dentist in one location",
-        "operationId": "get_dentist_ls_loc",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "offset",
-            "in": "query",
-            "type": "integer",
-            "minimum": 0,
-            "default": 0
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "type": "integer",
-            "minimum": 1,
-            "default": 10
-          },
-          {
-            "name": "location",
-            "in": "query",
-            "type": "string",
-            "default": "",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Dentist"
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized API key"
+          "default": {
+            "description": "Something is wrong"
           }
         },
         "security": [
@@ -227,6 +164,9 @@
           },
           "404": {
             "description": "dentist not found"
+          },
+          "default": {
+            "description": "Something is wrong"
           }
         },
         "security": [
@@ -252,6 +192,22 @@
             "in": "path",
             "type": "string",
             "required": true
+          },
+          {
+            "name": "filter",
+            "in": "body",
+            "type": "object",
+            "schema": null,
+            "properties": {
+              "start_date": {
+                "type": "string",
+                "format": "date"
+              },
+              "end_date": {
+                "type": "string",
+                "format": "date"
+              }
+            }
           }
         ],
         "responses": {
@@ -266,6 +222,9 @@
           },
           "404": {
             "description": "dentist not found"
+          },
+          "default": {
+            "description": "Something is wrong"
           }
         },
         "security": [
@@ -339,11 +298,42 @@
       "properties": {
         "date": {
           "type": "string",
-          "format": "date-time"
+          "format": "date"
         },
         "time": {
           "type": "string",
-          "description": "starting time, 1 hour timeslot"
+          "description": "starting time, 1 hour timeslot",
+          "pattern": "^\\d{2}(A|P)M$"
+        },
+        "status": {
+          "type": "string",
+          "pattern": "^(Available|Reserved)$"
+        }
+      }
+    },
+    "Dentist_filter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "dentist name insentitve case"
+        },
+        "work_day": {
+          "type": "string",
+          "description": "day name of week",
+          "enum": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "insentitve case"
         }
       }
     }

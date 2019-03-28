@@ -50,27 +50,23 @@ class RefNode(object):
 
 base_path = '/v1'
 
-definitions = {'definitions': {'Dentist': {'type': 'object', 'properties': {'id': {'type': 'string'}, 'name': {'type': 'string'}, 'location': {'type': 'string'}, 'work_days': {'type': 'array', 'items': {'type': 'string', 'enum': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}}, 'specialities': {'type': 'array', 'items': {'type': 'string', 'enum': ['public health dentistry', 'dento-maxillofacial radiology', 'endodontics', 'forensic odontology', 'oral and maxillofacial surgery', 'oral medicine', 'oral and maxillofacial pathology', 'oral surgery', 'orthodontics', 'paediatric dentistry', 'periodontics', 'prosthodontics', 'special needs dentistry']}}}}, 'Timeslot': {'type': 'object', 'properties': {'date': {'type': 'string', 'format': 'date-time'}, 'time': {'type': 'string', 'description': 'starting time, 1 hour timeslot'}}}}, 'parameters': {}}
+definitions = {'definitions': {'Dentist': {'type': 'object', 'properties': {'id': {'type': 'string'}, 'name': {'type': 'string'}, 'location': {'type': 'string'}, 'work_days': {'type': 'array', 'items': {'type': 'string', 'enum': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}}, 'specialities': {'type': 'array', 'items': {'type': 'string', 'enum': ['public health dentistry', 'dento-maxillofacial radiology', 'endodontics', 'forensic odontology', 'oral and maxillofacial surgery', 'oral medicine', 'oral and maxillofacial pathology', 'oral surgery', 'orthodontics', 'paediatric dentistry', 'periodontics', 'prosthodontics', 'special needs dentistry']}}}}, 'Timeslot': {'type': 'object', 'properties': {'date': {'type': 'string', 'format': 'date'}, 'time': {'type': 'string', 'description': 'starting time, 1 hour timeslot', 'pattern': '^\\d{2}(A|P)M$'}, 'status': {'type': 'string', 'pattern': '^(Available|Reserved)$'}}}, 'Dentist_filter': {'type': 'object', 'properties': {'name': {'type': 'string', 'description': 'dentist name insentitve case'}, 'work_day': {'type': 'string', 'description': 'day name of week', 'enum': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}, 'location': {'type': 'string', 'description': 'insentitve case'}}}}, 'parameters': {}}
 
 validators = {
-    ('dentists', 'GET'): {'args': {'required': [], 'properties': {'offset': {'type': 'integer', 'minimum': 0, 'default': 0}, 'limit': {'type': 'integer', 'minimum': 1, 'default': 10}}}},
-    ('dentists_byDay', 'GET'): {'args': {'required': [], 'properties': {'offset': {'type': 'integer', 'minimum': 0, 'default': 0}, 'limit': {'type': 'integer', 'minimum': 1, 'default': 10}, 'day': {'type': 'string', 'default': ''}}}},
-    ('dentists_byLoc', 'GET'): {'args': {'required': ['location'], 'properties': {'offset': {'type': 'integer', 'minimum': 0, 'default': 0}, 'limit': {'type': 'integer', 'minimum': 1, 'default': 10}, 'location': {'type': 'string', 'default': ''}}}},
+    ('dentists', 'GET'): {'json': {'type': 'object', 'properties': {'name': {'type': 'string', 'description': 'dentist name insentitve case'}, 'work_day': {'type': 'string', 'description': 'day name of week', 'enum': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}, 'location': {'type': 'string', 'description': 'insentitve case'}}}, 'args': {'required': [], 'properties': {'offset': {'type': 'integer', 'minimum': 0, 'default': 0}, 'limit': {'type': 'integer', 'minimum': 1, 'default': 10}}}},
+    ('dentists_dentistId_timeslots', 'GET'): {'json': None},
 }
 
 filters = {
-    ('locations', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'type': 'string'}}}},
+    ('locations', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'type': 'string'}}}, 401: {'headers': None, 'schema': None}},
     ('dentists', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Dentist'}}}, 401: {'headers': None, 'schema': None}},
-    ('dentists_byDay', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Dentist'}}}, 401: {'headers': None, 'schema': None}},
-    ('dentists_byLoc', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Dentist'}}}, 401: {'headers': None, 'schema': None}},
     ('dentists_dentistId', 'GET'): {200: {'headers': None, 'schema': {'$ref': '#/definitions/Dentist'}}, 401: {'headers': None, 'schema': None}, 404: {'headers': None, 'schema': None}},
     ('dentists_dentistId_timeslots', 'GET'): {200: {'headers': None, 'schema': {'$ref': '#/definitions/Timeslot'}}, 401: {'headers': None, 'schema': None}, 404: {'headers': None, 'schema': None}},
 }
 
 scopes = {
+    ('locations', 'GET'): [],
     ('dentists', 'GET'): [],
-    ('dentists_byDay', 'GET'): [],
-    ('dentists_byLoc', 'GET'): [],
     ('dentists_dentistId', 'GET'): [],
     ('dentists_dentistId_timeslots', 'GET'): [],
 }

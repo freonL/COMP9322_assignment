@@ -1,5 +1,4 @@
-from mongoengine import StringField, IntField, Document, EmbeddedDocument, ListField, EmbeddedDocumentField, connect
-from uuid import uuid4
+from mongoengine import StringField, DateTimeField, IntField, Document, ListField, BooleanField
 
 
 class Dentist(Document):

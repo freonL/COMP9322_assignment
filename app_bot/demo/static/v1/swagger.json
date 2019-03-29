@@ -1,0 +1,597 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "A middleware between Fairy Tooth Chatbot and microservices as a part of assignment for  UNSW COMP9322\n",
+    "version": "1.0.0",
+    "title": "FairyTooth chatbot",
+    "contact": {
+      "email": "z5128774@ad.unsw.edu.au"
+    }
+  },
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "Dentist",
+      "description": "Everthing about dentist"
+    },
+    {
+      "name": "Timeslot",
+      "description": "Everthing about timeslot and appointment"
+    }
+  ],
+  "paths": {
+    "/datetime": {
+      "get": {
+        "summary": "Convert natural date time expression to be variables (user attributes)",
+        "operationId": "convert_datetime",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "datetime_exp",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "set_attributes": {
+                  "type": "object",
+                  "properties": {
+                    "booking_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "booking_time": {
+                      "type": "string",
+                      "pattern": "^\\d{2}(AM|PM)$"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "default": {
+            "description": "Something is wrong"
+          }
+        }
+      }
+    },
+    "/locations": {
+      "get": {
+        "summary": "Get all clinic(s) location as quick replies",
+        "operationId": "location_ls",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      },
+                      "quick_replies": {
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 11,
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "set_attribute": {
+                              "type": "object",
+                              "properties": {
+                                "location": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "quick_reply_options": {
+                        "type": "object",
+                        "properties": {
+                          "process_text_by_ai": {
+                            "type": "boolean"
+                          },
+                          "text_attribute_name": {
+                            "type": "string",
+                            "default": "dentist_name"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          },
+          "default": {
+            "description": "Something is wrong"
+          }
+        }
+      }
+    },
+    "/dentists": {
+      "get": {
+        "summary": "Get list of dentist base on query parameters as quick replies",
+        "operationId": "dentist_ls",
+        "tags": [
+          "Dentist"
+        ],
+        "parameters": [
+          {
+            "name": "dentist_name",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "location",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "booking_date",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      },
+                      "quick_replies": {
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 11,
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string",
+                              "description": "dentist name"
+                            },
+                            "set_attribute": {
+                              "type": "object",
+                              "properties": {
+                                "dentist_name": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "quick_reply_options": {
+                        "type": "object",
+                        "properties": {
+                          "process_text_by_ai": {
+                            "type": "boolean"
+                          },
+                          "text_attribute_name": {
+                            "type": "string",
+                            "default": "dentist_name"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Something is wrong"
+          }
+        }
+      }
+    },
+    "/dentists/{dentist_name}": {
+      "get": {
+        "summary": "Get a dentist detail base  and show it as text message",
+        "operationId": "dentist_detail",
+        "tags": [
+          "Dentist"
+        ],
+        "parameters": [
+          {
+            "name": "dentist_name",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      },
+                      "quick_replies": {
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 11,
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string"
+                            },
+                            "block_names": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Something is wrong"
+          }
+        }
+      }
+    },
+    "/dentists/{dentist_name}/timeslots": {
+      "get": {
+        "summary": "Get a available timeslot of a dentist in a day",
+        "operationId": "dentist_timeslots",
+        "tags": [
+          "Dentist"
+        ],
+        "parameters": [
+          {
+            "name": "dentist_name",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "booking_date",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      },
+                      "quick_replies": {
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 11,
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string",
+                              "description": "booking time"
+                            },
+                            "set_attribute": {
+                              "type": "object",
+                              "properties": {
+                                "booking_time": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "quick_reply_options": {
+                        "type": "object",
+                        "properties": {
+                          "process_text_by_ai": {
+                            "type": "boolean"
+                          },
+                          "text_attribute_name": {
+                            "type": "string",
+                            "default": "booking_time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Something is wrong"
+          }
+        }
+      }
+    },
+    "/timeslots": {
+      "get": {
+        "summary": "Checking the avaiblity of a timeslot, redirect to book.confirm if it is available",
+        "operationId": "is_available",
+        "tags": [
+          "Timeslot"
+        ],
+        "parameters": [
+          {
+            "name": "booking_date",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "booking_time",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "dentist_name",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "redirect_to_blocks": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Something is wrong"
+          }
+        }
+      }
+    },
+    "/appointments": {
+      "post": {
+        "summary": "Create new appointment with a dentist on given time",
+        "operationId": "create_appointment",
+        "tags": [
+          "Timeslot"
+        ],
+        "parameters": [
+          {
+            "name": "booking_date",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "booking_time",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "dentist_name",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "first_name",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "last_name",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "redirect_to_blocks": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Something is wrong"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all customer upcomming appoiment(s) and return as quick replies",
+        "operationId": "appointment_ls",
+        "tags": [
+          "Timeslot"
+        ],
+        "parameters": [
+          {
+            "name": "first_name",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "last_name",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "messages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      },
+                      "quick_replies": {
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 11,
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string",
+                              "description": "booking time"
+                            },
+                            "set_attribute": {
+                              "type": "object",
+                              "properties": {
+                                "booking_time": {
+                                  "type": "string"
+                                },
+                                "booking_date": {
+                                  "type": "string",
+                                  "format": "date"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "quick_reply_options": {
+                        "type": "object",
+                        "properties": {
+                          "process_text_by_ai": {
+                            "type": "boolean"
+                          },
+                          "text_attribute_name": {
+                            "type": "string",
+                            "default": "booking_time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Something is wrong"
+          }
+        }
+      }
+    },
+    "/appointments/cancel": {
+      "post": {
+        "summary": "Cancel an appointment",
+        "operationId": "cancel_appointment",
+        "tags": [
+          "Timeslot"
+        ],
+        "parameters": [
+          {
+            "name": "first_name",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "last_name",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "booking_date",
+            "type": "string",
+            "format": "date",
+            "in": "query"
+          },
+          {
+            "name": "booking_time",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "redirect_to_blocks": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Something is wrong"
+          }
+        }
+      }
+    }
+  }
+}

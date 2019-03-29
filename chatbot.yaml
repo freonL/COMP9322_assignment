@@ -381,6 +381,7 @@ paths:
           in: query
         - name: booking_time 
           type: string
+          enum: ['09AM','10AM','11AM', '12PM','01PM','02PM','03PM','04PM','05PM']
           in: query
       responses:
         200:

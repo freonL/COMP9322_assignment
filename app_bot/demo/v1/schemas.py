@@ -59,7 +59,7 @@ validators = {
     ('timeslots', 'GET'): {'args': {'required': [], 'properties': {'booking_date': {'type': 'string'}, 'booking_time': {'type': 'string'}, 'dentist_name': {'type': 'string'}}}},
     ('appointments', 'POST'): {'args': {'required': [], 'properties': {'booking_date': {'type': 'string'}, 'booking_time': {'type': 'string'}, 'dentist_name': {'type': 'string'}, 'first_name': {'type': 'string'}, 'last_name': {'type': 'string'}}}},
     ('appointments', 'GET'): {'args': {'required': [], 'properties': {'first_name': {'type': 'string'}, 'last_name': {'type': 'string'}}}},
-    ('appointments_cancel', 'POST'): {'args': {'required': [], 'properties': {'first_name': {'type': 'string'}, 'last_name': {'type': 'string'}, 'booking_date': {'type': 'string', 'format': 'date'}, 'booking_time': {'type': 'string'}}}},
+    ('appointments_cancel', 'POST'): {'args': {'required': [], 'properties': {'first_name': {'type': 'string'}, 'last_name': {'type': 'string'}, 'booking_date': {'type': 'string', 'format': 'date'}, 'booking_time': {'type': 'string', 'enum': ['09AM', '10AM', '11AM', '12PM', '01PM', '02PM', '03PM', '04PM', '05PM']}}}},
 }
 
 filters = {

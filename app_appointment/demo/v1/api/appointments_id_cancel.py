@@ -14,11 +14,10 @@ class AppointmentsIdCancel(Resource):
 
     def patch(self, id):
         try:
-            timeslot = Appointment.objects.get(id=id) 
-            if timeslot is None:
-                return {}, 404, None
-            timeslot.update_one(set__status=True)
-        except expression as identifier:
-            return {}, 404, None
+            connect(host='mongodb://user2:abc123@ds012889.mlab.com:12889/db_02')
+            
+            Appointment.objects.get(id=id).update(set__status='Available')
+        except:
+            return {}, 401, None
 
         return {}, 200, None

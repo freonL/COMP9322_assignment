@@ -6,6 +6,7 @@ from mongoengine import connect
 from . import Resource
 from .. import schemas
 from ..models import Dentist
+from mongoengine.queryset.visitor import Q
 
 
 class Dentists(Resource):
@@ -16,10 +17,15 @@ class Dentists(Resource):
         limit = g.args['limit']
         max_rec = offset + limit
         
-        for key in g.args: 
-            print(key)
+        condition = None
+        if 'name' in g.args:
+            condition = Q(name__icontains=g.args['name'])
         
+        if 'location' in g.args:
+            if condition is None:
+                condition = Q(location__iexact=g.args['location'])
+            else:
+                condition &= Q(location__iexact=g.args['location'])
         connect(host='mongodb://user1:abc123@ds040877.mlab.com:40877/db_01')
-        
 
-        return Dentist.objects[offset:max_rec], 200, None
+        return Dentist.objects(condition)[offset:max_rec], 200, None

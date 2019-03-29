@@ -59,23 +59,21 @@ paths:
         - name: name
           in: query
           type: string
-          description: dentist name insentitve case
-        - name: work_day
-          type: string
-          in: query
-          description: day name of week
-          enum:
-            - Monday
-            - Tuesday
-            - Wednesday
-            - Thursday
-            - Friday
-            - Saturday
-            - Sunday
+          
+        # - name: work_day
+        #   type: string
+        #   in: query
+        #   enum:
+        #     - Monday
+        #     - Tuesday
+        #     - Wednesday
+        #     - Thursday
+        #     - Friday
+        #     - Saturday
+        #     - Sunday
         - name: location
           in: query
-          type: string 
-          description: suburb name, insentitve case
+          type: string
 
       responses:
         '200':
@@ -212,23 +210,3 @@ definitions:
       status:
         type: string
         pattern: '^(Available|Reserved)$'
-  Dentist_filter:
-    type: object
-    properties:
-      name:
-        type: string
-        description: dentist name insentitve case
-      work_day:
-        type: string
-        description: day name of week
-        enum:
-          - Monday
-          - Tuesday
-          - Wednesday
-          - Thursday
-          - Friday
-          - Saturday
-          - Sunday
-      location:
-        type: string 
-        description: insentitve case

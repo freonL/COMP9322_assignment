@@ -54,21 +54,21 @@ definitions = {'definitions': {'Dentist': {'type': 'object', 'properties': {'id'
 
 validators = {
     ('dentists', 'GET'): {'args': {'required': ['offset', 'limit'], 'properties': {'offset': {'type': 'integer', 'minimum': 0, 'default': 0}, 'limit': {'type': 'integer', 'minimum': 1, 'default': 10}, 'name': {'type': 'string'}, 'location': {'type': 'string'}}}},
-    ('dentists_dentistId_timeslots', 'GET'): {'args': {'required': ['start_date'], 'properties': {'start_date': {'type': 'string', 'format': 'date'}, 'end_date': {'type': 'string', 'format': 'date'}}}},
+    ('dentists_dentist_name_timeslots', 'GET'): {'args': {'required': ['start_date'], 'properties': {'start_date': {'type': 'string', 'format': 'date'}, 'end_date': {'type': 'string', 'format': 'date'}}}},
 }
 
 filters = {
     ('locations', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'type': 'string'}}}, 401: {'headers': None, 'schema': None}},
     ('dentists', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Dentist'}}}, 401: {'headers': None, 'schema': None}},
-    ('dentists_dentistId', 'GET'): {200: {'headers': None, 'schema': {'$ref': '#/definitions/Dentist'}}, 401: {'headers': None, 'schema': None}, 404: {'headers': None, 'schema': None}},
-    ('dentists_dentistId_timeslots', 'GET'): {200: {'headers': None, 'schema': {'$ref': '#/definitions/Timeslot'}}, 401: {'headers': None, 'schema': None}, 404: {'headers': None, 'schema': None}},
+    ('dentists_dentist_name', 'GET'): {200: {'headers': None, 'schema': {'$ref': '#/definitions/Dentist'}}, 401: {'headers': None, 'schema': None}, 404: {'headers': None, 'schema': None}},
+    ('dentists_dentist_name_timeslots', 'GET'): {200: {'headers': None, 'schema': {'$ref': '#/definitions/Timeslot'}}, 401: {'headers': None, 'schema': None}, 404: {'headers': None, 'schema': None}},
 }
 
 scopes = {
     ('locations', 'GET'): [],
     ('dentists', 'GET'): [],
-    ('dentists_dentistId', 'GET'): [],
-    ('dentists_dentistId_timeslots', 'GET'): [],
+    ('dentists_dentist_name', 'GET'): [],
+    ('dentists_dentist_name_timeslots', 'GET'): [],
 }
 
 resolver = RefResolver.from_schema(definitions)

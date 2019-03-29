@@ -116,7 +116,7 @@
         ]
       }
     },
-    "/dentists/{dentistId}": {
+    "/dentists/{dentist_name}": {
       "get": {
         "tags": [
           "Dentist"
@@ -128,7 +128,7 @@
         ],
         "parameters": [
           {
-            "name": "dentistId",
+            "name": "dentist_name",
             "in": "path",
             "type": "string",
             "required": true
@@ -158,7 +158,7 @@
         ]
       }
     },
-    "/dentists/{dentistId}/timeslots": {
+    "/dentists/{dentist_name}/timeslots": {
       "get": {
         "tags": [
           "Dentist"
@@ -170,7 +170,7 @@
         ],
         "parameters": [
           {
-            "name": "dentistId",
+            "name": "dentist_name",
             "in": "path",
             "type": "string",
             "required": true

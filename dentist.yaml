@@ -88,7 +88,7 @@ paths:
           description: Something is wrong
       security:
         - api_key: []
-  /dentists/{dentistId}:
+  /dentists/{dentist_name}:
     get:
       tags:
         - Dentist
@@ -97,7 +97,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: dentistId
+        - name: dentist_name
           in: path
           type: string
           required: true
@@ -115,7 +115,7 @@ paths:
       security:
         - api_key: []
 
-  /dentists/{dentistId}/timeslots:
+  /dentists/{dentist_name}/timeslots:
     get:
       tags:
         - Dentist
@@ -124,7 +124,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: dentistId
+        - name: dentist_name
           in: path
           type: string
           required: true

@@ -142,11 +142,15 @@ paths:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/Timeslot'
+            type: array
+            items:
+              $ref: '#/definitions/Timeslot'
         '401':
           description: Unauthorized API key
         '404':
           description: dentist not found
+        '500':
+          description: cannot access other services
         default:
           description: Something is wrong
       security:

@@ -16,7 +16,7 @@ class DentistsDentistName(Resource):
         connect(host='mongodb://user1:abc123@ds040877.mlab.com:40877/db_01')
         
         try:
-            result = Dentist.objects.get(id=dentistId)
+            result = Dentist.objects.get(name__iexact=dentist_name)
         except expression as identifier:
             return {}, 404, None
         return result, 200, None

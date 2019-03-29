@@ -17,7 +17,7 @@ class AppointmentsBydoctor(Resource):
         doctor = g.args['name'].lower()
         try:
             connect(host='mongodb://user2:abc123@ds012889.mlab.com:12889/db_02')
-            appointments = Appointment.objects(Q(doctor=doctor) & Q(status="reserved") & Q(date__gte=datetime.now().strftime('%Y-%m-%d') ))
+            appointments = Appointment.objects(Q(doctor__iexact=doctor) & Q(status="reserved") & Q(date__gte=datetime.now().strftime('%Y-%m-%d') ))
 
         except:
             return [], 405, None

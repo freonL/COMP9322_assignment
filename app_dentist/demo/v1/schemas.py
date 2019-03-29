@@ -61,7 +61,7 @@ filters = {
     ('locations', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'type': 'string'}}}, 401: {'headers': None, 'schema': None}},
     ('dentists', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Dentist'}}}, 401: {'headers': None, 'schema': None}},
     ('dentists_dentist_name', 'GET'): {200: {'headers': None, 'schema': {'$ref': '#/definitions/Dentist'}}, 401: {'headers': None, 'schema': None}, 404: {'headers': None, 'schema': None}},
-    ('dentists_dentist_name_timeslots', 'GET'): {200: {'headers': None, 'schema': {'$ref': '#/definitions/Timeslot'}}, 401: {'headers': None, 'schema': None}, 404: {'headers': None, 'schema': None}},
+    ('dentists_dentist_name_timeslots', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Timeslot'}}}, 401: {'headers': None, 'schema': None}, 404: {'headers': None, 'schema': None}, 500: {'headers': None, 'schema': None}},
 }
 
 scopes = {

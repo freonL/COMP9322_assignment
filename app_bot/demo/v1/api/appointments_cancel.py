@@ -6,6 +6,7 @@ from flask import request, g
 from . import Resource
 from .. import schemas
 
+from requests import get
 
 class AppointmentsCancel(Resource):
 

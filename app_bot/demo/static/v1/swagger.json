@@ -308,29 +308,14 @@
                           "type": "object",
                           "properties": {
                             "title": {
-                              "type": "string",
-                              "description": "booking time"
+                              "type": "string"
                             },
-                            "set_attributes": {
-                              "type": "object",
-                              "properties": {
-                                "booking_time": {
-                                  "type": "string"
-                                }
+                            "block_names": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
                               }
                             }
-                          }
-                        }
-                      },
-                      "quick_reply_options": {
-                        "type": "object",
-                        "properties": {
-                          "process_text_by_ai": {
-                            "type": "boolean"
-                          },
-                          "text_attribute_name": {
-                            "type": "string",
-                            "default": "booking_time"
                           }
                         }
                       }

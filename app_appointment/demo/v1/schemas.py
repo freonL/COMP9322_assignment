@@ -50,19 +50,19 @@ class RefNode(object):
 
 base_path = '/v1'
 
-definitions = {'definitions': {'Appoinment': {'type': 'object', 'properties': {'id': {'type': 'string'}, 'date': {'type': 'string', 'format': 'date'}, 'time': {'type': 'string', 'pattern': '^\\d{2}(AM|PM)$'}, 'customer': {'type': 'string'}, 'doctor': {'type': 'string'}, 'status': {'type': 'string', 'enum': ['reserved', 'canceled']}}}}, 'parameters': {}}
+definitions = {'definitions': {'Appointment': {'type': 'object', 'properties': {'id': {'type': 'integer'}, 'date': {'type': 'string', 'format': 'date'}, 'time': {'type': 'string', 'pattern': '^\\d{2}(AM|PM)$'}, 'customer': {'type': 'string'}, 'doctor': {'type': 'string'}, 'status': {'type': 'string', 'enum': ['reserved', 'canceled']}}}}, 'parameters': {}}
 
 validators = {
-    ('appointments', 'POST'): {'json': {'$ref': '#/definitions/Appoinment'}},
+    ('appointments', 'POST'): {'json': {'$ref': '#/definitions/Appointment'}},
     ('appointments_byCustomer', 'GET'): {'args': {'required': ['name'], 'properties': {'name': {'type': 'string'}}}},
     ('appointments_byDoctor', 'GET'): {'args': {'required': ['name'], 'properties': {'name': {'type': 'string'}}}},
 }
 
 filters = {
-    ('appointments', 'POST'): {200: {'headers': None, 'schema': {'$ref': '#/definitions/Appoinment'}}, 405: {'headers': None, 'schema': None}, 401: {'headers': None, 'schema': None}},
-    ('appointments_byCustomer', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Appoinment'}}}, 405: {'headers': None, 'schema': None}, 401: {'headers': None, 'schema': None}},
-    ('appointments_byDoctor', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Appoinment'}}}, 405: {'headers': None, 'schema': None}, 401: {'headers': None, 'schema': None}},
-    ('appointments_id_cancel', 'PATCH'): {200: {'headers': None, 'schema': {'$ref': '#/definitions/Appoinment'}}, 405: {'headers': None, 'schema': None}, 401: {'headers': None, 'schema': None}},
+    ('appointments', 'POST'): {200: {'headers': None, 'schema': {'$ref': '#/definitions/Appointment'}}, 401: {'headers': None, 'schema': None}, 405: {'headers': None, 'schema': None}},
+    ('appointments_byCustomer', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Appointment'}}}, 401: {'headers': None, 'schema': None}, 405: {'headers': None, 'schema': None}},
+    ('appointments_byDoctor', 'GET'): {200: {'headers': None, 'schema': {'type': 'array', 'items': {'$ref': '#/definitions/Appointment'}}}, 401: {'headers': None, 'schema': None}, 405: {'headers': None, 'schema': None}},
+    ('appointments_id_cancel', 'PATCH'): {200: {'headers': None, 'schema': {'$ref': '#/definitions/Appointment'}}, 401: {'headers': None, 'schema': None}, 405: {'headers': None, 'schema': None}},
 }
 
 scopes = {

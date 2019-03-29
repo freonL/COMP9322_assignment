@@ -25,7 +25,7 @@
         "tags": [
           "Appointment"
         ],
-        "summary": "Create new appoinment",
+        "summary": "Create new appointment",
         "operationId": "create_appointment",
         "parameters": [
           {
@@ -33,7 +33,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Appoinment"
+              "$ref": "#/definitions/Appointment"
             }
           }
         ],
@@ -47,14 +47,17 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Appoinment"
+              "$ref": "#/definitions/Appointment"
             }
+          },
+          "401": {
+            "description": "Unauthorized API key"
           },
           "405": {
             "description": "Invalid input"
           },
-          "401": {
-            "description": "Unauthorized API key"
+          "default": {
+            "description": "Something is wrong"
           }
         },
         "security": [
@@ -88,15 +91,18 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Appoinment"
+                "$ref": "#/definitions/Appointment"
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized API key"
           },
           "405": {
             "description": "Invalid input"
           },
-          "401": {
-            "description": "Unauthorized API key"
+          "default": {
+            "description": "Something is wrong"
           }
         },
         "security": [
@@ -130,15 +136,18 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Appoinment"
+                "$ref": "#/definitions/Appointment"
               }
             }
+          },
+          "401": {
+            "description": "Unauthorized API key"
           },
           "405": {
             "description": "Invalid input"
           },
-          "401": {
-            "description": "Unauthorized API key"
+          "default": {
+            "description": "Something is wrong"
           }
         },
         "security": [
@@ -153,7 +162,7 @@
         "tags": [
           "Appointment"
         ],
-        "summary": "Cancel a appoinment",
+        "summary": "Cancel a appointment",
         "operationId": "cancel_appointment",
         "produces": [
           "application/json"
@@ -170,14 +179,17 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Appoinment"
+              "$ref": "#/definitions/Appointment"
             }
+          },
+          "401": {
+            "description": "Unauthorized API key"
           },
           "405": {
             "description": "Invalid input"
           },
-          "401": {
-            "description": "Unauthorized API key"
+          "default": {
+            "description": "Something is wrong"
           }
         },
         "security": [
@@ -196,11 +208,11 @@
     }
   },
   "definitions": {
-    "Appoinment": {
+    "Appointment": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "integer"
         },
         "date": {
           "type": "string",
@@ -225,9 +237,5 @@
         }
       }
     }
-  },
-  "externalDocs": {
-    "description": "Find out more about Swagger",
-    "url": "http://swagger.io"
   }
 }

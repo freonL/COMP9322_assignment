@@ -19,13 +19,15 @@ class Dentists(Resource):
         
         condition = None
         if 'name' in g.args:
-            condition = Q(name__icontains=g.args['name'])
+            if g.args['name'] is not '':
+                condition = Q(name__icontains=g.args['name'])
         
         if 'location' in g.args:
-            if condition is None:
-                condition = Q(location__iexact=g.args['location'])
-            else:
-                condition &= Q(location__iexact=g.args['location'])
+            if g.args['location'] is not '':
+                if condition is None:
+                    condition = Q(location__iexact=g.args['location'])
+                else:
+                    condition &= Q(location__iexact=g.args['location'])
         connect(host='mongodb://user1:abc123@ds040877.mlab.com:40877/db_01')
 
         return Dentist.objects(condition)[offset:max_rec], 200, None

@@ -29,7 +29,11 @@ class DentistsDentistNameTimeslots(Resource):
             
         today_dt = date.today()
         start_dt = datetime.strptime( g.args['start_date'],'%Y-%m-%d').date()
-        end_dt = datetime.strptime( g.args['end_date'],'%Y-%m-%d' ).date()
+        try:
+            end_dt = datetime.strptime( g.args['end_date'],'%Y-%m-%d' ).date()
+        except:
+            end_dt = start_dt
+        
 
         if start_dt < today_dt:
             start_dt = today_dt

@@ -10,7 +10,7 @@ from requests import get
 class Timeslots(Resource):
 
     def get(self):
-        print(g.args)
+        # print(g.args)
         
         url = "http://0.0.0.0:3000/v1/appointments/byDoctor?name={}".format(g.args['dentist_name'])
         output = {"redirect_to_blocks": ["book.confirm"]}

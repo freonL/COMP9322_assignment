@@ -14,7 +14,7 @@ from uuid import uuid4
 class Appointments(Resource):
 
     def post(self):
-        print(g.json)
+        # print(g.json)
         connect(host='mongodb://user2:abc123@ds012889.mlab.com:12889/db_02')
         try:
             customer = g.json['customer'].lower()

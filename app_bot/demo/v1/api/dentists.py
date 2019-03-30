@@ -12,7 +12,7 @@ from datetime import datetime
 class Dentists(Resource):
 
     def get(self):
-        print(g.args)
+        # print(g.args)
         url = "http://0.0.0.0:5000/v1/dentists?offset={}&limit={}&location={}&name={}".format(0,10,g.args['location'],g.args['dentist_name'])
         ls = list()
         resp = get(url)

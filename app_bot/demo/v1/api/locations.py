@@ -29,5 +29,5 @@ class Locations(Resource):
                 'text_attribute_name': "location"
             }
         }]}
-        print(result)
+        # print(result)
         return result, 200, None

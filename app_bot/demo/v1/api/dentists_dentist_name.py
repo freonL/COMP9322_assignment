@@ -3,14 +3,14 @@ from __future__ import absolute_import, print_function
 
 from flask import request, g
 
-from . import Resource
+from . import Resource,DENTIST
 from .. import schemas
 from requests import get
 
 class DentistsDentistName(Resource):
 
     def get(self, dentist_name):
-        url = "http://0.0.0.0:5000/v1/dentists/{}".format(dentist_name)
+        url = DENTIST.url+"/dentists/{}".format(dentist_name)
         resp = get(url)
         print(resp)
         res = resp.json()

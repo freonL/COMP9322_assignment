@@ -3,7 +3,7 @@ from __future__ import absolute_import, print_function
 
 from flask import request, g
 
-from . import Resource
+from . import Resource,DENTIST
 from .. import schemas
 from requests import get
 
@@ -11,7 +11,7 @@ class DentistsDentistNameTimeslots(Resource):
 
     def get(self, dentist_name):
         print(g.args)
-        url = "http://0.0.0.0:5000/v1/dentists/{}/timeslots?start_date={}".format(dentist_name,g.args['booking_date'])
+        url = DENTIST.url + "/dentists/{}/timeslots?start_date={}".format(dentist_name,g.args['booking_date'])
         resp = get(url)
 
         ls = list()

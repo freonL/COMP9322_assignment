@@ -3,20 +3,36 @@ from __future__ import absolute_import, print_function
 
 from flask import request, g
 
-from . import Resource
+from . import Resource, DENTIST
 from .. import schemas
 
 from requests import get
 from datetime import datetime
 
+
 class Dentists(Resource):
 
     def get(self):
-        # print(g.args)
-        url = "http://0.0.0.0:5000/v1/dentists?offset={}&limit={}&location={}&name={}".format(0,10,g.args['location'],g.args['dentist_name'])
+
         ls = list()
+        
+        url = DENTIST.url+"/dentists?offset={}&limit={}".format(0,10)
+
+        try:
+            url = url + "&location={}".format(g.args['location'])
+        except :
+            pass
+        try:
+            url = url + "&name={}".format(g.args['dentist_name'])
+        except :
+            pass
+
         resp = get(url)
-        day = datetime.strptime(g.args['booking_date'],'%Y-%m-%d').strftime('%A')
+        try:
+            day = datetime.strptime(g.args['booking_date'],'%Y-%m-%d').strftime('%A')
+        except :
+            day = datetime.now().strftime('%A')
+        
         for res in resp.json():
             if day in res['work_days']:
                 ls.append({
@@ -28,7 +44,7 @@ class Dentists(Resource):
 
         output = {
             "messages":[{
-                'text': "There are our results\nWhich you want to choose?",
+                'text': "There are our results\nWhich dentist you want to choose?",
                 "quick_replies": ls,
                 "quick_reply_options": {
                     "process_text_by_ai": True,

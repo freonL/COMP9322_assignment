@@ -3,7 +3,7 @@ from __future__ import absolute_import, print_function
 
 from flask import request, g
 
-from . import Resource
+from . import Resource, TIMESLOT
 from .. import schemas
 from requests import get
 
@@ -12,7 +12,7 @@ class Timeslots(Resource):
     def get(self):
         # print(g.args)
         
-        url = "http://0.0.0.0:3000/v1/appointments/byDoctor?name={}".format(g.args['dentist_name'])
+        url = TIMESLOT.url + "/appointments/byDoctor?name={}".format(g.args['dentist_name'])
         output = {"redirect_to_blocks": ["book.confirm"]}
         resp = get(url)
         # print(resp)

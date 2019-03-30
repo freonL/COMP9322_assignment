@@ -3,7 +3,7 @@ from __future__ import absolute_import, print_function
 
 from flask import request, g
 
-from . import Resource
+from . import Resource, TIMESLOT
 from .. import schemas
 
 from requests import get, patch
@@ -13,12 +13,12 @@ class AppointmentsCancel(Resource):
     def post(self):
         # print(g.args)
         customer = "{} {}".format(g.args['first_name'], g.args['last_name'])
-        url = "http://0.0.0.0:3000/v1/appointments/byCustomer?name={}".format(customer)
+        url = TIMESLOT.url + "/appointments/byCustomer?name={}".format(customer)
         responses = get(url)
         output = {"redirect_to_blocks": ["cancel.fail"]}
         for res in responses.json():
             if g.args['booking_time'] == res['time'][:10] and g.args['booking_date']:
-                url = "http://0.0.0.0:3000/v1/appointments/{}/cancel".format(res['id'])
+                url = TIMESLOT.url+"/appointments/{}/cancel".format(res['id'])
                 cancel = patch(url)
                 if cancel.status_code == 200:
                     output = {"redirect_to_blocks": ["cancel.success"]}

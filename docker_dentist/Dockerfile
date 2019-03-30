@@ -1,4 +1,4 @@
-FROM alpine:lastest
+FROM alpine:latest
 RUN apk add --no-cache python3-dev
 RUN pip3 install --upgrade pip
 WORKDIR /service

@@ -14,7 +14,7 @@ class Datetime(Resource):
     def get(self):
         print(g.args)
         AUTH = 'Bearer 2RDKA3BKYCEZ55IBFL4NIYNFSSEXF5OD'
-        url = "https://api.wit.ai/message?v=20190329&q={}".format(g.args['datetime_exp'])
+        url = "https://api.wit.ai/message?v=20190330&q={}".format(g.args['datetime_exp'])
 
         result = get(url, headers={'Authorization': AUTH}).json()
         output = None

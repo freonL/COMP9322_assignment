@@ -27,7 +27,7 @@ class Dentists(Resource):
         except :
             pass
 
-        resp = get(url)
+        resp = get(url, headers={'API_KEY': DENTIST.apiKey})
         try:
             day = datetime.strptime(g.args['booking_date'],'%Y-%m-%d').strftime('%A')
         except :

@@ -11,7 +11,7 @@ class Locations(Resource):
 
     def get(self):
         url = DENTIST.url + "/locations"
-        response = get(url)
+        response = get(url,headers={'API_KEY': DENTIST.apiKey})
         ls = list()
         for loc in response.json():
             ls.append({

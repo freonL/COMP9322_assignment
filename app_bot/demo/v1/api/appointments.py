@@ -13,7 +13,7 @@ class Appointments(Resource):
         # print(g.args)
         customer = "{} {}".format(g.args['first_name'], g.args['last_name'])
         url = TIMESLOT.url + "/appointments/byCustomer?name={}".format(customer)
-        resp = get(url)
+        resp = get(url, headers={'API_KEY': TIMESLOT.apiKey})
 
         ls = list()
         for res in resp.json():

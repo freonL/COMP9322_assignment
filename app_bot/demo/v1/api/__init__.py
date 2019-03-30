@@ -13,7 +13,7 @@ class Resource(restful.Resource):
 class MicroServices():
     def __init__(self, url = 'http://0.0.0.0', key=''):
         self.url = url
-        self.key = key
+        self.apiKey = key
 
-DENTIST = MicroServices("http://0.0.0.0:5000/v1")
-TIMESLOT = MicroServices("http://0.0.0.0:3000/v1")
+DENTIST = MicroServices("http://0.0.0.0:5000/v1","d279e9604a129f48f5ff39dc6bee6546")
+TIMESLOT = MicroServices("http://0.0.0.0:3000/v1","a3b23d9d511e81d63115d21af049cf1f")

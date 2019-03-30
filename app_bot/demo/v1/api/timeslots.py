@@ -14,7 +14,7 @@ class Timeslots(Resource):
         
         url = TIMESLOT.url + "/appointments/byDoctor?name={}".format(g.args['dentist_name'])
         output = {"redirect_to_blocks": ["book.confirm"]}
-        resp = get(url)
+        resp = get(url,headers={'API_KEY': TIMESLOT.apiKey})
         # print(resp)
         for res in resp.json():
             # print(res)

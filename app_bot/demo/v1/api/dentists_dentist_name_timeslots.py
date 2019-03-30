@@ -12,7 +12,7 @@ class DentistsDentistNameTimeslots(Resource):
     def get(self, dentist_name):
         print(g.args)
         url = DENTIST.url + "/dentists/{}/timeslots?start_date={}".format(dentist_name,g.args['booking_date'])
-        resp = get(url)
+        resp = get(url, headers={'API_KEY': DENTIST.apiKey})
 
         ls = list()
         for res in resp.json():

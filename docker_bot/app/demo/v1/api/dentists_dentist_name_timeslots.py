@@ -11,8 +11,8 @@ class DentistsDentistNameTimeslots(Resource):
 
     def get(self, dentist_name):
         print(g.args)
+        dentist_name = dentist_name.replace("%20"," ")
         print(dentist_name)
-        dentist_name = dentist_name.replace(("%20","+")," ")
         url = DENTIST.url + "/dentists/{}/timeslots?start_date={}".format(dentist_name,g.args['booking_date'])
         resp = get(url, headers={'API_KEY': DENTIST.apiKey})
         

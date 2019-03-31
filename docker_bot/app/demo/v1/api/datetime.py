@@ -31,36 +31,18 @@ class Datetime(Resource):
                     'set_attributes': {
                         'booking_date' : booking_date,
                         'booking_time' : booking_time
-                    }
+                    },
+                    'redirect_to_blocks': ['datetime.confirm']
                 }
 
             else:
-                
-                ls = list()
-
-                for tm in time_ls:
-
-                    ls.append({
-                        'title': tm,
-                        'set_attributes': {
-                            "booking_time": tm
-                        },
-                    })
-
-                
                 output = {
                     'set_attributes': {
                         'booking_date' : booking_date,
                     },
-                    'messages': [{
-                        'text': "What's time you like?",
-                        'quick_replies': ls,
-                        'quick_reply_options': {
-                            'process_text_by_ai': True,
-                            'text_attribute_name': "booking_time"
-                        }
-                    }]
-                }
+                    "redirect_to_blocks": ["datetime.time"]}
+                
+                
                 pass
             
         except :

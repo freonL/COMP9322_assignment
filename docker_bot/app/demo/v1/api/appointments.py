@@ -39,7 +39,7 @@ class Appointments(Resource):
     def post(self):
         
         customer = "{} {}".format(g.args['first_name'], g.args['last_name'])
-        url ="http://0.0.0.0:3000/v1/appointments"
+        url =TIMESLOT.url+"/appointments"
         
         body = {
             'date': g.args['booking_date'],
@@ -49,10 +49,13 @@ class Appointments(Resource):
         }
         
 
-        resp = post(url, json=body)
+        resp = post(url, json=body,  headers={'API_KEY': TIMESLOT.apiKey})
         if resp.status_code == 200:
             output = {"redirect_to_blocks": ["book.success"]}
         else:
+            print(body)
+            print(resp.status_code)
+            print(resp)
             output = {"redirect_to_blocks": ["book.failed"]}
 
         return output, 200, None

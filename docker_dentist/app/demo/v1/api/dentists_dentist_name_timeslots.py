@@ -41,8 +41,8 @@ class DentistsDentistNameTimeslots(Resource):
         if end_dt < start_dt:
             end_dt = start_dt + timedelta(1)
         try:
-            url = "http://{}/v1/appointments/byDoctor?name={}".format("286b0322.ngrok.io",dentist_name)
-            responses = get(url)
+            url = "http://35.244.112.194/v1/appointments/byDoctor?name={}".format(dentist_name)
+            responses = get(url,headers={'API_KEY': "a3b23d9d511e81d63115d21af049cf1f"})
             
             
             

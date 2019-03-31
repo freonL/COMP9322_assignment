@@ -45,7 +45,7 @@ class Dentists(Resource):
                 ls.append({
                     "title": res['name'],
                     "set_attributes": {
-                        "dentist_name": res['name'].replace(" ","%20")
+                        "dentist_name": res['name']
                     }
                 })
 

@@ -40,12 +40,12 @@ class Appointments(Resource):
         
         customer = "{} {}".format(g.args['first_name'], g.args['last_name'])
         url ="http://0.0.0.0:3000/v1/appointments"
-
+        
         body = {
             'date': g.args['booking_date'],
             'time': g.args['booking_time'],
             'customer': customer,
-            'doctor': g.args['dentist_name']
+            'doctor': g.args['dentist_name'].replace("%20"," ")
         }
         
 

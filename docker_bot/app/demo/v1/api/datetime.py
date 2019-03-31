@@ -37,7 +37,7 @@ class Datetime(Resource):
             else:
                 
                 ls = list()
-                print('21')
+
                 for tm in time_ls:
 
                     ls.append({

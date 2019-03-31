@@ -16,10 +16,12 @@ class AppointmentsCancel(Resource):
         url = TIMESLOT.url + "/appointments/byCustomer?name={}".format(customer)
         responses = get(url, headers={'API_KEY': TIMESLOT.apiKey})
         output = {"redirect_to_blocks": ["cancel.fail"]}
+
         for res in responses.json():
+            print('ID', res['id'])
             if g.args['booking_time'] == res['time'][:10] and g.args['booking_date']:
                 url = TIMESLOT.url+"/appointments/{}/cancel".format(res['id'])
-                cancel = patch(url)
+                cancel = patch(url, headers={'API_KEY': TIMESLOT.apiKey})
                 if cancel.status_code == 200:
                     output = {"redirect_to_blocks": ["cancel.success"]}
                 break

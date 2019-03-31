@@ -23,7 +23,7 @@ class Dentists(Resource):
         except :
             pass
         try:
-            url = url + "&name={}".format(g.args['dentist_name'])
+            url = url + "&name={}".format(g.args['dentist_name'].replace(("%20","+")," "))
         except :
             pass
 
@@ -36,9 +36,9 @@ class Dentists(Resource):
         for res in resp.json():
             if day in res['work_days']:
                 ls.append({
-                    "title": res['name'],
+                    "title": res['name'].replace(" ","%20"),
                     "set_attributes": {
-                        "dentist_name": res['name']
+                        "dentist_name": res['name'].replace(" ","%20")
                     }
                 })
 

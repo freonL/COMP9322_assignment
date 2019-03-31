@@ -19,11 +19,13 @@ class Dentists(Resource):
         url = DENTIST.url+"/dentists?offset={}&limit={}".format(0,10)
 
         try:
-            url = url + "&location={}".format(g.args['location'])
+            if g.args['location'] is not '' or g.args['location'] is not None:
+                url = url + "&location={}".format(g.args['location'])
         except :
             pass
         try:
-            url = url + "&name={}".format(g.args['dentist_name'])
+            if g.args['dentist_name'] is not '' or g.args['dentist_name'] is not None:
+                url = url + "&name={}".format(g.args['dentist_name'].replace("%20"," "))
         except :
             pass
 
@@ -32,13 +34,18 @@ class Dentists(Resource):
             day = datetime.strptime(g.args['booking_date'],'%Y-%m-%d').strftime('%A')
         except :
             day = datetime.now().strftime('%A')
+
+        if len(resp.json()) == 0:
+            output = {"redirect_to_blocks": ["dentist.nothing"]}
+            return output, 200, None
+
         
         for res in resp.json():
             if day in res['work_days']:
                 ls.append({
                     "title": res['name'],
                     "set_attributes": {
-                        "dentist_name": res['name']
+                        "dentist_name": res['name'].replace(" ","%20")
                     }
                 })
 

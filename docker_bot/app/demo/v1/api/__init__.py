@@ -15,5 +15,5 @@ class MicroServices():
         self.url = url
         self.apiKey = key
 
-DENTIST = MicroServices("http://127.0.0.1:5000/v1","d279e9604a129f48f5ff39dc6bee6546")
-TIMESLOT = MicroServices("http://127.0.0.1:3000/v1","a3b23d9d511e81d63115d21af049cf1f")
+DENTIST = MicroServices("http://35.244.88.239/v1","d279e9604a129f48f5ff39dc6bee6546")
+TIMESLOT = MicroServices("http://35.244.112.194/v1","a3b23d9d511e81d63115d21af049cf1f")

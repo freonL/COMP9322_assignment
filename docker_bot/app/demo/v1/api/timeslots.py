@@ -10,9 +10,9 @@ from requests import get
 class Timeslots(Resource):
 
     def get(self):
-        # print(g.args)
+        print(g.args)
         
-        url = TIMESLOT.url + "/appointments/byDoctor?name={}".format(g.args['dentist_name'])
+        url = TIMESLOT.url + "/appointments/byDoctor?name={}".format(g.args['dentist_name'].replace("%20"," "))
         output = {"redirect_to_blocks": ["book.confirm"]}
         resp = get(url,headers={'API_KEY': TIMESLOT.apiKey})
         # print(resp)

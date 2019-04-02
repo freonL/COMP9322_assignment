@@ -152,6 +152,12 @@
             "schema": {
               "type": "object",
               "properties": {
+                "redirect_to_blocks": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "messages": {
                   "type": "array",
                   "items": {

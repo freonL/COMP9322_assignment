@@ -1,4 +1,4 @@
 venv/
 .vscode/
 *.pyc
-docker_*/app
+docker_*/app/

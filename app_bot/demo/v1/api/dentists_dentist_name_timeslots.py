@@ -10,18 +10,8 @@ from requests import get
 class DentistsDentistNameTimeslots(Resource):
 
     def get(self, dentist_name):
-        print(g.args)
-        dentist_name = dentist_name.replace("%20"," ")
-        print(dentist_name)
-        # url = DENTIST.url + "/dentists/{}/timeslots?start_date={}".format(dentist_name,g.args['booking_date'])
-        # resp = get(url, headers={'API_KEY': DENTIST.apiKey})
-        
-        # ls = list()
-        # for res in resp.json():
-        #     print(res)
-        #     if res['status'] == 'Available':
-        #         ls.append(res['time'])
-
+        # print(g.args)
+        dentist_name = dentist_name.replace("+"," ")
         url = TIMESLOT.url + "/appointments/byDoctor?name={}".format(dentist_name)
         resp = get(url, headers={'API_KEY': TIMESLOT.apiKey})
         if len(resp.json()) == 0:

@@ -10,7 +10,7 @@ from requests import get
 class DentistsDentistName(Resource):
 
     def get(self, dentist_name):
-        dentist_name = dentist_name.replace("%20"," ")
+        dentist_name = dentist_name.replace("+"," ")
         url = DENTIST.url+"/dentists/{}".format(dentist_name)
         resp = get(url, headers={'API_KEY': DENTIST.apiKey})
         
